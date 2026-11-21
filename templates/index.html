@@ -1,0 +1,397 @@
+{% extends "base.html" %}
+
+{% block title %}CampusBridge - Home{% endblock %}
+
+{% block content %}
+
+<style>
+    html {
+        scroll-behavior: smooth;
+    }
+
+    .hero {
+        min-height: 600px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(
+            135deg,
+            #071b49,
+            #0755a5,
+            #1685d4
+        );
+        color: white;
+        padding: 100px 20px;
+        text-align: center;
+    }
+
+    .hero-tag {
+        display: inline-block;
+        background: rgba(255,255,255,0.15);
+        padding: 10px 22px;
+        border-radius: 30px;
+        letter-spacing: 2px;
+        font-size: 13px;
+        margin-bottom: 25px;
+    }
+
+    .hero h1 {
+        font-size: clamp(38px, 6vw, 65px);
+        font-weight: 800;
+        line-height: 1.2;
+    }
+
+    .hero h1 span {
+        display: block;
+        color: #55c2ff;
+    }
+
+    .hero p {
+        font-size: 18px;
+        max-width: 650px;
+        margin: 25px auto;
+        color: #e0ecff;
+        line-height: 1.8;
+    }
+
+    .section-heading {
+        font-weight: 800;
+        color: #102b55;
+    }
+
+    .feature-card {
+        background: white;
+        padding: 35px 25px;
+        border-radius: 18px;
+        height: 100%;
+        text-align: center;
+        box-shadow: 0 5px 25px rgba(0,0,0,0.07);
+        transition: 0.3s;
+        border: 1px solid #edf0f5;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 30px rgba(0,0,0,0.13);
+    }
+
+    .feature-icon {
+        font-size: 48px;
+        margin-bottom: 20px;
+    }
+
+    .feature-card h4 {
+        color: #0755a5;
+        font-weight: 700;
+        margin-bottom: 15px;
+    }
+
+    .feature-card p {
+        color: #6c757d;
+        line-height: 1.7;
+    }
+
+    .about-section {
+        background: #f1f6fc;
+        padding: 80px 20px;
+    }
+
+    .about-section p {
+        max-width: 800px;
+        margin: 20px auto;
+        color: #626d7b;
+        font-size: 17px;
+        line-height: 1.9;
+    }
+
+    .about-box {
+        background: white;
+        padding: 30px;
+        border-radius: 16px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+        height: 100%;
+    }
+
+    .cta-section {
+        background: linear-gradient(120deg, #0755a5, #092b62);
+        color: white;
+        padding: 65px 20px;
+        text-align: center;
+    }
+
+    .cta-section h2 {
+        font-weight: 800;
+    }
+
+    .cta-section p {
+        color: #e0ecff;
+        margin: 18px 0 25px;
+    }
+
+    @media(max-width: 576px) {
+        .hero {
+            min-height: 520px;
+            padding: 70px 15px;
+        }
+
+        .hero p {
+            font-size: 16px;
+        }
+    }
+</style>
+
+
+<!-- HERO SECTION -->
+
+<section class="hero" id="home">
+
+    <div class="container">
+
+        <span class="hero-tag">
+            YOUR CAREER STARTS HERE
+        </span>
+
+        <h1>
+            Find Your Dream
+            <span>Internship & Job</span>
+        </h1>
+
+        <p>
+            Connect with leading companies, explore exciting
+            internship opportunities and take the first step
+            towards building your successful career.
+        </p>
+
+        <div class="mt-4">
+
+            <a href="{{ url_for('register') }}"
+               class="btn btn-primary btn-lg px-4 me-2">
+                Get Started
+            </a>
+
+            <a href="#features"
+               class="btn btn-outline-light btn-lg px-4">
+                Explore More
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FEATURES SECTION -->
+
+<section class="container py-5 my-4" id="features">
+
+    <div class="text-center mb-5">
+
+        <h2 class="section-heading">
+            Everything You Need
+        </h2>
+
+        <p class="text-muted">
+            One platform for your complete career journey.
+        </p>
+
+    </div>
+
+    <div class="row g-4">
+
+        <!-- STUDENTS -->
+
+        <div class="col-md-4">
+
+            <div class="feature-card">
+
+                <div class="feature-icon">🎓</div>
+
+                <h4>For Students</h4>
+
+                <p>
+                    Create your professional profile,
+                    upload your resume, explore internships
+                    and track your application status.
+                </p>
+
+                <a href="{{ url_for('register') }}"
+                   class="btn btn-outline-primary">
+                    Join as Student
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- COMPANIES -->
+
+        <div class="col-md-4">
+
+            <div class="feature-card">
+
+                <div class="feature-icon">🏢</div>
+
+                <h4>For Companies</h4>
+
+                <p>
+                    Connect with talented students,
+                    publish internship opportunities
+                    and discover future professionals.
+                </p>
+
+                <a href="{{ url_for('login') }}"
+                   class="btn btn-outline-primary">
+                    Company Login
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- ADMIN -->
+
+        <div class="col-md-4">
+
+            <div class="feature-card">
+
+                <div class="feature-icon">📊</div>
+
+                <h4>For Administrators</h4>
+
+                <p>
+                    Manage students, companies,
+                    internship opportunities and
+                    application activities from one platform.
+                </p>
+
+                <a href="{{ url_for('login') }}"
+                   class="btn btn-outline-primary">
+                    Admin Login
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ABOUT SECTION -->
+
+<section class="about-section" id="about">
+
+    <div class="container">
+
+        <div class="text-center mb-5">
+
+            <h2 class="section-heading">
+                About CampusBridge
+            </h2>
+
+            <p>
+                CampusBridge is an internship and job
+                connection platform designed to bring
+                students and companies together.
+            </p>
+
+        </div>
+
+        <div class="row g-4">
+
+            <div class="col-md-4">
+
+                <div class="about-box text-center">
+
+                    <div class="feature-icon">🎯</div>
+
+                    <h5 class="fw-bold">
+                        Our Mission
+                    </h5>
+
+                    <p>
+                        To make internship and job opportunities
+                        more accessible to students.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="about-box text-center">
+
+                    <div class="feature-icon">🌟</div>
+
+                    <h5 class="fw-bold">
+                        Our Vision
+                    </h5>
+
+                    <p>
+                        To create a bridge between education
+                        and professional career opportunities.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="about-box text-center">
+
+                    <div class="feature-icon">🤝</div>
+
+                    <h5 class="fw-bold">
+                        Our Goal
+                    </h5>
+
+                    <p>
+                        To help students develop their skills
+                        and connect with potential employers.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- CALL TO ACTION -->
+
+<section class="cta-section">
+
+    <div class="container">
+
+        <h2>
+            Ready to Start Your Career?
+        </h2>
+
+        <p>
+            Join CampusBridge today and discover
+            exciting opportunities for your future.
+        </p>
+
+        <a href="{{ url_for('register') }}"
+           class="btn btn-light btn-lg px-5">
+            Register Now
+        </a>
+
+    </div>
+
+</section>
+
+
+{% endblock %}
