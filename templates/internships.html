@@ -1,0 +1,217 @@
+{% extends "base.html" %}
+
+{% block title %}Explore Internships | CampusBridge{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <!-- PAGE HEADER -->
+    <div class="mb-4">
+        <h2 class="fw-bold">Explore Internships</h2>
+        <p class="text-muted">
+            Discover opportunities and take the next step in your career.
+        </p>
+    </div>
+
+    <!-- SEARCH AND FILTER -->
+    <div class="card border-0 shadow-sm p-4 mb-4">
+
+        <h5 class="fw-bold mb-3">Find Your Opportunity</h5>
+
+        <form method="GET" action="{{ url_for('internships') }}">
+            <div class="row g-3">
+
+                <div class="col-md-4">
+                    <label class="form-label">Search</label>
+                    <input
+                        type="text"
+                        name="search"
+                        class="form-control"
+                        placeholder="Job title or company"
+                        value="{{ search }}"
+                    >
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-label">Location</label>
+                    <input
+                        type="text"
+                        name="location"
+                        class="form-control"
+                        placeholder="Remote, Bareilly..."
+                        value="{{ location }}"
+                    >
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-label">Job Type</label>
+
+                    <select name="job_type" class="form-select">
+                        <option value="">All Types</option>
+
+                        <option value="Internship"
+                            {% if job_type == 'Internship' %}selected{% endif %}>
+                            Internship
+                        </option>
+
+                        <option value="Full-time"
+                            {% if job_type == 'Full-time' %}selected{% endif %}>
+                            Full-time
+                        </option>
+
+                        <option value="Part-time"
+                            {% if job_type == 'Part-time' %}selected{% endif %}>
+                            Part-time
+                        </option>
+                    </select>
+                </div>
+
+                <div class="col-md-2 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary w-100">
+                        Search
+                    </button>
+                </div>
+
+            </div>
+        </form>
+
+        <div class="mt-3">
+            <a href="{{ url_for('internships') }}"
+               class="text-decoration-none">
+                Clear All Filters
+            </a>
+        </div>
+
+    </div>
+
+    <!-- RESULTS -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="fw-bold mb-0">Available Opportunities</h5>
+
+        <span class="badge bg-primary">
+            {{ internships|length }} Results
+        </span>
+    </div>
+
+    <!-- INTERNSHIP CARDS -->
+    {% if internships %}
+
+        <div class="row g-4">
+
+            {% for internship in internships %}
+
+                <div class="col-md-6 col-lg-4">
+
+                    <div class="card h-100 shadow-sm border-0 p-3">
+
+                        <div class="card-body">
+
+                            <span class="badge bg-light text-primary mb-3">
+                                {{ internship.job_type or 'Opportunity' }}
+                            </span>
+
+                            <h5 class="fw-bold">
+                                {{ internship.title }}
+                            </h5>
+
+                            <p class="text-primary fw-semibold">
+                                {{ internship.company_name }}
+                            </p>
+
+                            <p class="text-muted">
+                                {{ internship.description }}
+                            </p>
+
+                            <hr>
+
+                            <p>
+                                <strong>Location:</strong>
+                                {{ internship.location or 'Not specified' }}
+                            </p>
+
+                            <p>
+                                <strong>Stipend:</strong>
+                                {{ internship.stipend or 'Not specified' }}
+                            </p>
+
+                            <p>
+                                <strong>Last Date:</strong>
+                                {{ internship.last_date or 'Not specified' }}
+                            </p>
+
+                            <hr>
+
+                            <!-- RESUME UPLOAD + APPLY NOW -->
+
+                            <form
+                                action="{{ url_for('apply_internship', job_id=internship.id) }}"
+                                method="POST"
+                                enctype="multipart/form-data"
+                            >
+
+                                <label class="form-label fw-bold">
+                                    Upload Your Resume
+                                </label>
+
+                                <input
+                                    type="file"
+                                    name="resume"
+                                    class="form-control mb-2"
+                                    accept=".pdf,application/pdf"
+                                    required
+                                >
+
+                                <small class="text-muted d-block mb-3">
+                                    PDF format only. Maximum size: 5 MB.
+                                </small>
+
+                                <button
+                                    type="submit"
+                                    class="btn btn-primary w-100"
+                                >
+                                    Apply Now
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="card border-0 shadow-sm p-5 text-center">
+
+            <h5>No Internships Found</h5>
+
+            <p class="text-muted">
+                Try another keyword or change your filters.
+            </p>
+
+            <a href="{{ url_for('internships') }}"
+               class="btn btn-primary">
+                View All Internships
+            </a>
+
+        </div>
+
+    {% endif %}
+
+    <!-- BACK BUTTON -->
+    <div class="mt-4">
+        <a href="{{ url_for('student_dashboard') }}"
+           class="btn btn-outline-secondary">
+            Back to Dashboard
+        </a>
+    </div>
+
+</div>
+
+{% endblock %}
