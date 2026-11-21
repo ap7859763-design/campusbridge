@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+
+{% block title %}My Profile | CampusBridge{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="card border-0 shadow-sm rounded-4 mx-auto"
+         style="max-width: 750px;">
+
+        <div class="card-body p-4 p-md-5">
+
+            <h2 class="fw-bold mb-2">My Profile</h2>
+
+            <p class="text-muted mb-4">
+                View and update your personal information.
+            </p>
+
+            <form method="POST">
+
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">
+                        Full Name
+                    </label>
+
+                    <input type="text"
+                           name="name"
+                           class="form-control"
+                           value="{{ profile.name }}"
+                           required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">
+                        Email Address
+                    </label>
+
+                    <input type="email"
+                           class="form-control"
+                           value="{{ profile.email }}"
+                           readonly>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">
+                        Phone Number
+                    </label>
+
+                    <input type="text"
+                           name="phone"
+                           class="form-control"
+                           value="{{ profile.phone or '' }}"
+                           placeholder="Enter phone number">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">
+                        College Name
+                    </label>
+
+                    <input type="text"
+                           name="college"
+                           class="form-control"
+                           value="{{ profile.college or '' }}"
+                           placeholder="Enter college name">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">
+                        Course
+                    </label>
+
+                    <input type="text"
+                           name="course"
+                           class="form-control"
+                           value="{{ profile.course or '' }}"
+                           placeholder="Enter your course">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">
+                        Graduation Year
+                    </label>
+
+                    <input type="number"
+                           name="graduation_year"
+                           class="form-control"
+                           value="{{ profile.graduation_year or '' }}"
+                           min="1900"
+                           max="2100"
+                           placeholder="e.g. 2027">
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label fw-semibold">
+                        Skills
+                    </label>
+
+                    <textarea name="skills"
+                              class="form-control"
+                              rows="4"
+                              placeholder="Python, Java, HTML, CSS...">{{ profile.skills or '' }}</textarea>
+                </div>
+
+                <div class="d-flex flex-wrap gap-2">
+
+                    <button type="submit"
+                            class="btn btn-primary px-4">
+                        Save Changes
+                    </button>
+
+                    <a href="{{ url_for('student_dashboard') }}"
+                       class="btn btn-outline-secondary px-4">
+                        Back to Dashboard
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
