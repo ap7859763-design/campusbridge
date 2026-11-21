@@ -1,0 +1,140 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f8faff;
+    color: #172554;
+}
+
+.custom-navbar {
+    background: #142653;
+    padding: 16px 0;
+}
+
+.navbar-brand {
+    font-size: 25px;
+    letter-spacing: 0.5px;
+}
+
+.hero {
+    background: linear-gradient(135deg, #142653, #3758a5);
+    color: white;
+    padding: 110px 20px;
+}
+
+.hero-tag {
+    display: inline-block;
+    background: #ffffff20;
+    padding: 9px 18px;
+    border-radius: 30px;
+    font-size: 12px;
+    letter-spacing: 2px;
+    margin-bottom: 25px;
+}
+
+.hero h1 {
+    font-size: clamp(35px, 6vw, 65px);
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+.hero h1 span {
+    display: block;
+    color: #91c8ff;
+}
+
+.hero p {
+    max-width: 650px;
+    margin: 20px auto;
+    font-size: 18px;
+    color: #e1eaff;
+    line-height: 1.7;
+}
+
+.btn-primary {
+    background: #3775ec;
+    border-color: #3775ec;
+    padding: 12px 25px;
+}
+
+.btn-primary:hover {
+    background: #2459c4;
+}
+
+.feature-card {
+    background: white;
+    padding: 35px 25px;
+    border-radius: 18px;
+    height: 100%;
+    box-shadow: 0 5px 25px #14265312;
+    transition: 0.3s;
+    text-align: center;
+}
+
+.feature-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 10px 30px #14265320;
+}
+
+.feature-icon {
+    font-size: 45px;
+    margin-bottom: 20px;
+}
+
+.feature-card h4 {
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.feature-card p {
+    color: #64748b;
+    line-height: 1.7;
+}
+
+.about-section {
+    background: #eaf1ff;
+}
+
+.about-section p {
+    max-width: 650px;
+    margin: 15px auto;
+    color: #64748b;
+    line-height: 1.8;
+}
+
+.footer {
+    background: #142653;
+    color: white;
+    padding: 22px 10px;
+}
+
+.footer p {
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .hero {
+        padding: 75px 15px;
+    }
+
+    .hero p {
+        font-size: 16px;
+    }
+
+    .hero .btn {
+        margin: 7px 0;
+        width: 100%;
+    }
+
+    .feature-card {
+        padding: 28px 18px;
+    }
+
+    .navbar-brand {
+        font-size: 21px;
+    }
+}
