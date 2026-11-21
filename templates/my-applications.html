@@ -1,0 +1,244 @@
+{% extends "base.html" %}
+
+{% block title %}Track Applications - CampusBridge{% endblock %}
+
+{% block content %}
+
+<style>
+    .application-card {
+        border: none;
+        border-radius: 14px;
+        box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+        margin-bottom: 25px;
+    }
+
+    .tracking-step {
+        text-align: center;
+        flex: 1;
+        position: relative;
+    }
+
+    .step-circle {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: #dee2e6;
+        color: #6c757d;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: auto auto 10px;
+        font-weight: bold;
+    }
+
+    .step-circle.active {
+        background: #198754;
+        color: white;
+    }
+
+    .step-line {
+        height: 4px;
+        background: #dee2e6;
+        flex: 1;
+        margin-top: 17px;
+    }
+
+    .step-line.active {
+        background: #198754;
+    }
+
+    .tracking-wrapper {
+        display: flex;
+        align-items: flex-start;
+        margin: 30px 0;
+    }
+
+    .step-label {
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    .rejected-box {
+        background: #f8d7da;
+        color: #842029;
+        padding: 15px;
+        border-radius: 8px;
+    }
+</style>
+
+<div class="container py-5">
+
+    <div class="mb-4">
+        <h2 class="fw-bold">Track Your Applications</h2>
+        <p class="text-muted">
+            Track the progress of your internship applications.
+        </p>
+    </div>
+
+    <div class="mb-4">
+        <a href="{{ url_for('internships') }}"
+           class="btn btn-primary">
+            Browse Internships
+        </a>
+    </div>
+
+    {% if applications %}
+
+        {% for application in applications %}
+
+        {% set status = (application.status or 'applied')|lower %}
+
+        <div class="card application-card">
+            <div class="card-body p-4">
+
+                <div class="d-flex justify-content-between flex-wrap">
+
+                    <div>
+                        <h5 class="fw-bold">
+                            {{ application.title }}
+                        </h5>
+
+                        <p class="text-primary fw-semibold">
+                            {{ application.company_name }}
+                        </p>
+                    </div>
+
+                    {% if status == 'selected' %}
+                        <span class="badge bg-success">
+                            Selected
+                        </span>
+                    {% elif status == 'shortlisted' %}
+                        <span class="badge bg-info">
+                            Shortlisted
+                        </span>
+                    {% elif status == 'rejected' %}
+                        <span class="badge bg-danger">
+                            Rejected
+                        </span>
+                    {% else %}
+                        <span class="badge bg-warning text-dark">
+                            Applied
+                        </span>
+                    {% endif %}
+
+                </div>
+
+                <hr>
+
+                <div class="row">
+
+                    <div class="col-md-4">
+                        <strong>Location:</strong>
+                        {{ application.location or 'Not specified' }}
+                    </div>
+
+                    <div class="col-md-4">
+                        <strong>Stipend:</strong>
+                        {{ application.stipend or 'Not specified' }}
+                    </div>
+
+                    <div class="col-md-4">
+                        <strong>Applied On:</strong>
+                        {{ application.applied_at }}
+                    </div>
+
+                </div>
+
+                <hr>
+
+                <h6 class="fw-bold mb-3">
+                    Application Progress
+                </h6>
+
+                {% if status == 'rejected' %}
+
+                    <div class="rejected-box">
+                        <strong>Application Rejected</strong>
+                        <p class="mb-0 mt-1">
+                            Unfortunately, your application was not selected.
+                        </p>
+                    </div>
+
+                {% else %}
+
+                    {% set progress = 1 if status == 'applied'
+                        else 2 if status == 'shortlisted'
+                        else 3 if status == 'selected'
+                        else 1 %}
+
+                    <div class="tracking-wrapper">
+
+                        <div class="tracking-step">
+                            <div class="step-circle active">1</div>
+                            <div class="step-label">Applied</div>
+                        </div>
+
+                        <div class="step-line
+                            {% if progress >= 2 %}active{% endif %}">
+                        </div>
+
+                        <div class="tracking-step">
+                            <div class="step-circle
+                                {% if progress >= 2 %}active{% endif %}">
+                                2
+                            </div>
+                            <div class="step-label">Shortlisted</div>
+                        </div>
+
+                        <div class="step-line
+                            {% if progress >= 3 %}active{% endif %}">
+                        </div>
+
+                        <div class="tracking-step">
+                            <div class="step-circle
+                                {% if progress >= 3 %}active{% endif %}">
+                                3
+                            </div>
+                            <div class="step-label">Selected</div>
+                        </div>
+
+                    </div>
+
+                    {% if status == 'applied' %}
+                        <p class="text-warning mb-0">
+                            Your application has been submitted and is awaiting review.
+                        </p>
+                    {% elif status == 'shortlisted' %}
+                        <p class="text-info mb-0">
+                            Congratulations! Your application has been shortlisted.
+                        </p>
+                    {% elif status == 'selected' %}
+                        <p class="text-success fw-bold mb-0">
+                            Congratulations! You have been selected.
+                        </p>
+                    {% endif %}
+
+                {% endif %}
+
+            </div>
+        </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <div class="card application-card text-center p-5">
+
+            <h4>No Applications Yet</h4>
+
+            <p class="text-muted">
+                You haven't applied for any internships yet.
+            </p>
+
+            <a href="{{ url_for('internships') }}"
+               class="btn btn-primary">
+                Explore Internships
+            </a>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}
